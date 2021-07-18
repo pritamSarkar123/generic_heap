@@ -17,6 +17,7 @@ setup(
     description=DESCRIPTION,
     long_description = open('README.md','r').read() + "\n\n" + open('CHANGELOG','r').read(),
     packages=find_packages(),
+    url = 'https://github.com/pritamSarkar123/generic_heap.git',
     license='MIT',
     install_requires=[],
     keywords=['python', 'Heap'],

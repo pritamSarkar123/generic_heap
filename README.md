@@ -1,22 +1,22 @@
 # Heap
 
-### Heap data structure,Gives a feel like using priority queue in Java and C++.
+#### Heap data structure,Gives a feel like using priority queue in Java and C++.
 
-### crete instance Heap(List,Key) Key can be any lambda or other function
+#### crete instance Heap(List,Key) Key can be any lambda or other function
 
-### Eg:-
+#### Eg:-
 
-### l =[[0,30],[15,20],[5,10]]
+#### l =[[0,30],[15,20],[5,10]]
 
-### heap = Heap(l,key = lambda x:-(x[0]*x[0]+x[1]*x[1]))
+#### heap = Heap(l,key = lambda x:-(x[0]*x[0]+x[1]*x[1]))
 
-### print(type(heap),heap)
+#### print(type(heap),heap)
 
-### heap.show()
+#### heap.show()
 
-### while heap.size():
+#### while heap.size():
 
-### print(heap.pop())
+#### <tab>print(heap.pop())
 
 ## Installation
 
