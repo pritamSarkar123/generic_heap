@@ -29,5 +29,6 @@ setup(
         "Operating System :: MacOS :: MacOS X",
         "Operating System :: Microsoft :: Windows",
         "License :: OSI Approved :: MIT License"
-    ]
+    ],
+	package_data={"generic_heap": ["py.typed"]}
 )
