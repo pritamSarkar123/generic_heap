@@ -25,13 +25,14 @@ class Heap(Generic[T]):
 		self.__heap_list = [self.__heap_node(item) for item in (items or [])]
 		heapq.heapify(self.__heap_list)
 
-	def push(self, item: T):
+	def push(self, item: T, key: Any = None):
 		"""Insert a new item into the heap.
 
 		Args:
 			item (T): The item to insert.
+			key (Any, optional): Override the key returned by the `key` function provided in the constructor.
 		"""
-		heapq.heappush(self.__heap_list, self.__heap_node(item))
+		heapq.heappush(self.__heap_list, self.__heap_node(item, key))
 
 	def pop(self) -> T:
 		"""Extrace an item from the heap.
@@ -67,17 +68,18 @@ class Heap(Generic[T]):
 	def __len__(self):
 		return self.size()
 
-	def __heap_node(self, item: T) -> Tuple[Any, int, T]:
+	def __heap_node(self, item: T, key: Any = None) -> Tuple[Any, int, T]:
 		"""Create a comparable tuple that can be inserted into the heap's list.
 
 		Args:
 			item (T): The item to be inserted.
+			key (Any, optional): Override the key returned by the `key` function provided in the constructor.
 
 		Returns:
 			Tuple[Any, int, T]: The tuple that can be inserted into the heap's list.
 		"""
 		self.__heap_index += 1
-		return (self.__heap_key(item), self.__heap_index, item)
+		return (self.__heap_key(item) if key is None else key, self.__heap_index, item)
 
 
 if __name__ == "__main__":
