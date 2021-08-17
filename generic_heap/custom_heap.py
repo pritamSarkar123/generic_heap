@@ -1,5 +1,6 @@
 from typing import Any, Callable, Generic, Iterable, List, Tuple, TypeVar
 import heapq
+import deprecation
 
 T = TypeVar("T")
 
@@ -45,13 +46,14 @@ class Heap(Generic[T]):
 		"""
 		return heapq.heappop(self.__heap_list)[-1]
 
+	@deprecation.deprecated("0.0.2", details="Use len(heap) instead.")
 	def size(self) -> int:
 		"""Get the number of items in the heap.
 
 		Returns:
 			int: The number of items in the heap.
 		"""
-		return len(self.__heap_list)
+		return len(self)
 
 	def items(self) -> List[T]:
 		"""Get the items in the heap.
@@ -66,7 +68,7 @@ class Heap(Generic[T]):
 		print(*self.items())
 
 	def __len__(self):
-		return self.size()
+		return len(self.__heap_list)
 
 	def __heap_node(self, item: T, key: Any = None) -> Tuple[Any, int, T]:
 		"""Create a comparable tuple that can be inserted into the heap's list.
