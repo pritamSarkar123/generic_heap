@@ -67,6 +67,17 @@ class Heap(Generic[T]):
 		"""Print the items in the heap."""
 		print(*self.items())
 
+	def peek(self) -> T:
+		"""Get the first item from the heap without extracting it.
+
+		Returns:
+			T: The first item in the heap.
+
+		Raises:
+			IndexError: If the heap is empty.
+		"""
+		return self.__heap_list[0][-1]
+
 	def __len__(self):
 		return len(self.__heap_list)
 
