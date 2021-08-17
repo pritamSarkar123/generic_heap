@@ -1,4 +1,4 @@
-from typing import Any, Callable, Generic, Iterable, List, Optional, TypeVar
+from typing import Any, Callable, Generic, Iterable, List, Tuple, TypeVar
 import heapq
 
 T = TypeVar("T")
@@ -21,10 +21,8 @@ class Heap(Generic[T]):
 			key (Callable[[T], Any], optional): A function to be used to determine the priority of the elements in the heap. It should take an element of type T and return some comparable object (e.g. an integer) which represents the priority. Lower priorities are extracted first. If no priority function is provided, then the inserted objects themselves are used and a min-heap is created.
 		"""
 		self.__heap_key = key
-		self.__heap_list = [
-			(self.__heap_key(item), i, item) for i, item in enumerate(items or [])
-		]
-		self.__heap_index = len(self.__heap_list)
+		self.__heap_index = -1
+		self.__heap_list = [self.__heap_node(item) for item in (items or [])]
 		heapq.heapify(self.__heap_list)
 
 	def push(self, item: T):
@@ -33,10 +31,7 @@ class Heap(Generic[T]):
 		Args:
 			item (T): The item to insert.
 		"""
-		heapq.heappush(
-			self.__heap_list, (self.__heap_key(item), self.__heap_index, item)
-		)
-		self.__heap_index += 1
+		heapq.heappush(self.__heap_list, self.__heap_node(item))
 
 	def pop(self) -> T:
 		"""Extrace an item from the heap.
@@ -57,11 +52,32 @@ class Heap(Generic[T]):
 		"""
 		return len(self.__heap_list)
 
+	def items(self) -> List[T]:
+		"""Get the items in the heap.
+
+		Returns:
+			List[T]: The items in the heap.
+		"""
+		return [node[-1] for node in self.__heap_list]
+
 	def show(self):
 		"""Print the items in the heap."""
-		for item in self.__heap_list:
-			print(item[-1], end=" ")
-		print()
+		print(*self.items())
+
+	def __len__(self):
+		return self.size()
+
+	def __heap_node(self, item: T) -> Tuple[Any, int, T]:
+		"""Create a comparable tuple that can be inserted into the heap's list.
+
+		Args:
+			item (T): The item to be inserted.
+
+		Returns:
+			Tuple[Any, int, T]: The tuple that can be inserted into the heap's list.
+		"""
+		self.__heap_index += 1
+		return (self.__heap_key(item), self.__heap_index, item)
 
 
 if __name__ == "__main__":
